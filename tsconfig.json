@@ -33,6 +33,9 @@
       ],
       "@/auth/*": [
         "./src/auth/*"
+      ],
+      "@/entities/*": [
+        "./src/entities/*"
       ]
     }
   },

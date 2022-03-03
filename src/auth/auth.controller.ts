@@ -27,21 +27,15 @@ export class AuthController {
   async sighIn(
     @GetUser() user: UserWithOutPassword,
     @Res() res: Response
-  ): Promise<Response> {
-    const cookie = await this.authService.sighIn(user);
-    res.setHeader('Set-Cookie', cookie);
-
-    return res.send(user);
+  ): Promise<void> {
+    return this.authService.sighIn(user, res);
   }
 
   // 발급된 토큰이 있어야지만 로그아웃이 가능하도록 만든다.
   @UseGuards(JwtAuthGuard)
   @Post('sighout')
-  sighOut(@Res() res: Response): Response {
-    const cookie = this.authService.sighOut();
-    res.setHeader('Set-Cookie', cookie);
-
-    return res.sendStatus(200);
+  sighOut(@Res() res: Response): void {
+    return this.authService.sighOut(res);
   }
 
   // 자신에 대한 정보는 반드시 토큰을 통해서만 접근할 수 있다.

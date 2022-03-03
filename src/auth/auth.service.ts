@@ -3,6 +3,7 @@ import bcrypt from 'bcryptjs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
+import { Response } from 'express';
 import { CreateUserDto } from '@/user/dto/create.user.dto';
 import { UserService } from '@/user/user.service';
 import { UserWithOutPassword } from '@/types/user.types';
@@ -55,15 +56,23 @@ export class AuthService {
   }
 
   // 로그인을 하면 토큰을 발급해준다.
-  async sighIn(user: UserWithOutPassword): Promise<string> {
-    const { username, email, } = user;
-    const payload = { username, email, };
-    const token = this.jwtService.sign(payload);
-    return `Authentication=${token}; HttpOnly; Path=/; Max-Age=${this.configService.get('JWT_EXP')}`;
+  async sighIn(user: UserWithOutPassword, res: Response): Promise<void> {
+    const token = this.jwtService.sign({ username: user.username, email: user.email, });
+    const cookie = `Authentication=${token}; HttpOnly; Path=/; Max-Age=${this.configService.get('JWT_EXP')}`;
+
+    res.setHeader('Set-Cookie', cookie);
+
+    throw new HttpException(user, HttpStatus.OK);
   }
 
   // 로그아웃을 하면 토큰을 제거한다.
-  sighOut(): string {
-    return `Authentication=; HttpOnly; Path=/; Max-Age=0`;
+  sighOut(res: Response): void {
+    const cookie = `Authentication=; HttpOnly; Path=/; Max-Age=0`;
+
+    res.setHeader('Set-Cookie', cookie);
+
+    throw new HttpException({
+      message: '로그아웃 되었습니다.',
+    }, HttpStatus.OK);
   }
 }

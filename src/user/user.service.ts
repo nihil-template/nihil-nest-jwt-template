@@ -19,11 +19,13 @@ export class UserService {
 
   // 유저를 불러온다.
   async getUser(username: string): Promise<UserWithOutPassword> {
-    const { password, ...userWithOutPassword } = await this.userRepository.findOne({
+    const user = await this.userRepository.findOne({
       where: { username, },
     });
 
-    if (!userWithOutPassword) {
+    const { password, ...userWithOutPassword } = user;
+
+    if (!user) {
       throw new HttpException({
         message: '사용자가 존재하지 않습니다.',
       }, HttpStatus.NOT_FOUND);
