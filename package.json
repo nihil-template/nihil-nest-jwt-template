@@ -1,16 +1,16 @@
 {
-  "name": "nest-jwt-training",
+  "name": "nihil-nest-jwt-template",
   "version": "1.0.0",
-  "description": "JWT 토큰 연습.",
+  "description": "NestJS에서 JWT를 편하게 사용하려고 만든 템플릿.",
   "main": "src/main.ts",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/NIHILncunia/nest-jwt-training.git"
+    "url": "git+https://github.com/nihil-template/nihil-nest-jwt-template.git"
   },
   "bugs": {
-    "url": "https://github.com/NIHILncunia/nest-jwt-training/issues"
+    "url": "https://github.com/nihil-template/nihil-nest-jwt-template/issues"
   },
-  "homepage": "https://github.com/NIHILncunia/nest-jwt-training#readme",
+  "homepage": "https://github.com/nihil-template/nihil-nest-jwt-template#readme",
   "scripts": {
     "build": "nest build",
     "start:dev": "nest start --watch",
