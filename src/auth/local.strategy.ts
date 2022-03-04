@@ -1,6 +1,6 @@
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-local';
-import { HttpException, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { UserWithOutPassword } from '@/types/user.types';
 
@@ -22,7 +22,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     if (!user) {
       throw new HttpException({
         message: '아이디 혹은 비밀번호가 일치하지 않습니다.',
-      }, 401);
+      }, HttpStatus.UNAUTHORIZED);
     }
 
     return user;
