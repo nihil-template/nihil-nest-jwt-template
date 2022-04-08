@@ -10,6 +10,6 @@ async function bootstrap() {
   app.use(cookieParser());
   app.use(helmet());
   await app.listen(4000);
-  console.log('서버가 4000 포트에서 실행됩니다.');
+  console.log('서버가 4000 포트에서 실행되고 있습니다.');
 }
 bootstrap();
