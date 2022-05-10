@@ -1,21 +1,22 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import bcrypt from 'bcryptjs';
-import { InjectRepository } from '@nestjs/typeorm';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { Response } from 'express';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 import { CreateUserDto } from '@/user/dto/create.user.dto';
 import { UserService } from '@/user/user.service';
 import { UserWithOutPassword } from '@/types/user.types';
-import { UserRepository } from '@/user/user.repository';
 import { SighInUserDto } from '@/auth/dto/sigh.in.user.dto';
+import { User } from '@/entities/user.entity';
 
 @Injectable()
 export class AuthService {
   constructor(
-    @InjectRepository(UserRepository)
+    @InjectRepository(User)
     // eslint-disable-next-line no-unused-vars
-    private userRepository: UserRepository,
+    private userRepository: Repository<User>,
     // eslint-disable-next-line no-unused-vars
     private userService: UserService,
     // eslint-disable-next-line no-unused-vars

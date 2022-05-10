@@ -5,14 +5,14 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { PassportModule } from '@nestjs/passport';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
-import { UserRepository } from '@/user/user.repository';
 import { UserService } from '@/user/user.service';
 import { LocalStrategy } from '@/auth/local.strategy';
 import { JwtStrategy } from '@/auth/jwt.strategy';
+import { User } from '@/entities/user.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([ UserRepository, ]),
+    TypeOrmModule.forFeature([ User, ]),
     // 패스포트를 위해 필요하다.
     PassportModule,
     // 인증을 위해 필요하다.
